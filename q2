@@ -1,0 +1,71 @@
+# Define salary datasets for all aircraft types
+salary_data_small <- c(388, 410, 444, 439, 437, 484, 553, 568, 371, 327, 292, 293, 296, 325, 354, 358, 367, 414, 528, 615, 649)
+salary_data_large <- c(495, 517, 583, 539, 546, 585, 629, 654, 440, 393, 350, 353, 368, 382, 401, 409, 429, 413, 542, 621, 648)
+salary_data_wide <- c(759, 858, 990, 980, 949, 994, 1082, 1131, 739, 653, 584, 581, 595, 647, 656, 654, 684, 837, 922, 1087, 1096)
+
+# Function to find mode (most frequent value)
+calculate_mode <- function(values) {
+  unique_vals <- unique(values)
+  frequency_count <- tabulate(match(values, unique_vals))
+  max_frequency <- max(frequency_count)
+  
+  if (max_frequency == 1) {
+    return("No mode, all values occur only once")
+  } else {
+    return(unique_vals[which(frequency_count == max_frequency)])
+  }
+}
+
+# Function to calculate all statistics for a given dataset
+calculate_statistics <- function(salary_data, aircraft_type) {
+  # Calculate basic statistics
+  avg_salary <- mean(salary_data)
+  median_salary <- median(salary_data)
+  mode_salary <- calculate_mode(salary_data)
+  standard_deviation <- sd(salary_data)
+  variance_salary <- var(salary_data)
+  quartile_values <- quantile(salary_data)
+  decile_90th <- quantile(salary_data, 0.9)
+  percentile_10th <- quantile(salary_data, 0.1)
+  range_salary <- diff(range(salary_data))
+  
+  # Compile results
+  statistics_summary <- list(
+    Aircraft_Type = aircraft_type,
+    Average = avg_salary,
+    Median = median_salary,
+    Mode = mode_salary,
+    Standard_Deviation = standard_deviation,
+    Variance = variance_salary,
+    Quartiles = quartile_values,
+    `90th_Decile` = decile_90th,
+    `10th_Percentile` = percentile_10th,
+    Range = range_salary
+  )
+  
+  return(statistics_summary)
+}
+
+# Calculate statistics for each aircraft type
+small_narrow_stats <- calculate_statistics(salary_data_small, "Small Narrow Body")
+large_narrow_stats <- calculate_statistics(salary_data_large, "Large Narrow Body")
+wide_body_stats <- calculate_statistics(salary_data_wide, "Wide Body")
+
+# Display results for each aircraft type
+cat("\nStatistics for Small Narrow Body Aircraft:\n")
+print(small_narrow_stats)
+
+cat("\nStatistics for Large Narrow Body Aircraft:\n")
+print(large_narrow_stats)
+
+cat("\nStatistics for Wide Body Aircraft:\n")
+print(wide_body_stats)
+
+# Create a comparative summary of key metrics
+comparative_summary <- data.frame(
+  Aircraft_Type = c("Small Narrow Body", "Large Narrow Body", "Wide Body"),
+  Average = c(small_narrow_stats$Average, large_narrow_stats$Average, wide_body_stats$Average),
+  Median = c(small_narrow_stats$Median, large_narrow_stats$Median, wide_body_stats$Median),
+  StdDev = c(small_narrow_stats$Standard_Deviation, large_narrow_stats$Standard_Deviation, wide_body_stats$Standard_Deviation),
+  Range = c(small_narrow_stats$Range, large_narrow_stats$Range, wide_body_stats$Range)
+)
