@@ -1,0 +1,57 @@
+# Load the necessary library
+library(dplyr)
+
+# Define the datasets containing salaries and wages for each aircraft type
+salary_data_small <- c(388, 410, 444, 439, 437, 484, 553, 568, 371, 327, 292, 293, 296, 325, 354, 358, 367, 414, 528, 615, 649)
+salary_data_large <- c(495, 517, 583, 539, 546, 585, 629, 654, 440, 393, 350, 353, 368, 382, 401, 409, 429, 413, 542, 621, 648)
+salary_data_wide <- c(759, 858, 990, 980, 949, 994, 1082, 1131, 739, 653, 584, 581, 595, 647, 656, 654, 684, 837, 922, 1087, 1096)
+
+# Set the size of the sample
+n <- 21
+
+# Function to perform frequency analysis
+analyze_frequency <- function(salary_data, aircraft_type) {
+  # Randomly sample 'n' elements from the salary data
+  sampled_data <- sample(salary_data, n)
+  
+  # Use Sturges' formula to determine the number of class intervals
+  k <- ceiling(log2(n) + 1)
+  
+  # Create intervals (breakpoints) for the frequency distribution
+  intervals <- seq(min(sampled_data), max(sampled_data), length.out = k + 1)
+  
+  # Group the data into the defined intervals and generate a frequency table
+  freq_table <- cut(sampled_data, breaks = intervals, include.lowest = TRUE, right = FALSE) %>%
+    table()
+  
+  # Display the frequency table
+  cat(sprintf("\nFrequency Table for %s Aircraft:\n", aircraft_type))
+  print(freq_table)
+  
+  # Plot a histogram for the frequency distribution
+  hist(sampled_data, 
+       breaks = intervals, 
+       col = switch(aircraft_type,
+                    "Small Narrow Body" = "lavender",
+                    "Large Narrow Body" = "pink",
+                    "Wide Body" = "skyblue"),
+       border = "black",
+       main = paste("Distribution of Salaries and Wages -", aircraft_type),
+       xlab = "Salary Range",
+       ylab = "Frequency")
+}
+
+# Analyze each aircraft type
+par(mfrow = c(3,1))  # Arrange plots in 3 rows, 1 column
+
+# Analyze Small Narrow Body Aircraft
+analyze_frequency(salary_data_small, "Small Narrow Body")
+
+# Analyze Large Narrow Body Aircraft
+analyze_frequency(salary_data_large, "Large Narrow Body")
+
+# Analyze Wide Body Aircraft
+analyze_frequency(salary_data_wide, "Wide Body")
+
+# Reset the plotting layout
+par(mfrow = c(1,1))
