@@ -1,0 +1,53 @@
+# Import necessary libraries
+library(ggplot2)
+library(reshape2)
+library(gridExtra)
+library(dplyr)
+library(tidyr)
+
+# Seed for reproducibility
+set.seed(123)
+
+# Data setup for different aircraft types
+
+# Data for Small Narrow Body Aircraft
+small_narrow_data <- data.frame(
+  Year = 1995:2015,
+  Maintenance = c(552, 588, 696, 737, 788, 757, 808, 710, 594, 553, 614, 721, 833, 750, 712, 913, 1103, 961, 993, 1076, 774),
+  Load_Factor = c(0.676, 0.696, 0.696, 0.701, 0.683, 0.696, 0.694, 0.712, 0.754, 0.777, 0.808, 0.818, 0.826, 0.822, 0.818, 0.830, 0.845, 0.831, 0.844, 0.854, 0.855),
+  Type = "Small Narrow Body"
+)
+
+# Data for Large Narrow Body Aircraft
+large_narrow_data <- data.frame(
+  Year = 1995:2015,
+  Maintenance = c(532, 652, 775, 711, 739, 734, 1032, 1117, 1148, 1155, 939, 834, 1108, 1262, 1334, 1323, 1578, 867, 842, 770, 815),
+  Load_Factor = rep(1, 21),
+  Type = "Large Narrow Body"
+)
+
+# Data for Wide Body Aircraft
+wide_body_data <- data.frame(
+  Year = 1995:2015,
+  Maintenance = c(1196, 1176, 1225, 1159, 1116, 1225, 1206, 1203, 1112, 1038, 1281, 1410, 1386, 1371, 1395, 1331, 1538, 1421, 1391, 1426, 1446),
+  Load_Factor = c(0.732, 0.741, 0.740, 0.726, 0.728, 0.740, 0.717, 0.758, 0.773, 0.811, 0.820, 0.829, 0.829, 0.798, 0.809, 0.839, 0.819, 0.816, 0.822, 0.813, 0.805),
+  Type = "Wide Body"
+)
+
+# Merge data for all aircraft types
+combined_data <- bind_rows(small_narrow_data, large_narrow_data, wide_body_data)
+
+# Pie chart for Maintenance, showing distribution by aircraft type for each year
+p1 <- ggplot(combined_data, aes(x = "", y = Maintenance, fill = Type)) +
+  geom_bar(stat = "identity") +
+  coord_polar(theta = "y") +
+  facet_wrap(~Year) +
+  labs(title = "Maintenance Costs by Year and Aircraft Type")
+
+# Bar chart for Load Factor, grouped by Year and Aircraft Type
+p2 <- ggplot(combined_data, aes(x = Year, y = Load_Factor, fill = Type)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Load Factor Comparison by Year and Aircraft Type")
+
+# Display the charts in a grid
+grid.arrange(p1, p2, ncol = 1)
