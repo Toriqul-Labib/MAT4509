@@ -1,0 +1,69 @@
+# Load required libraries
+library(ggplot2)
+library(reshape2)
+library(gridExtra)  # For arranging multiple plots
+
+# Set seed for reproducibility
+set.seed(123)
+
+# Create data frames for each aircraft type
+small_narrow_data <- data.frame(
+  Year = 1995:2015,
+  Purchased_Goods = c(563, 693, 665, 572, 544, 769, 796, 652, 770, 981, 1384, 1633, 1681, 2726, 1357, 1858, 2335, 2583, 2410, 2297, 1538),
+  Aircraft_Ownership = c(445,411,387,396,408,444,485,512,399,358,315,366,391,414,435,379,229,295,280,293,291),
+  Daily_Utilization = c(9.28,9.40,9.59,9.78,9.95,9.85,9.22,8.96,9.00,9.81,10.36,10.57,10.65,9.96,10.23,10.46,10.39,10.01,10.07,9.65,9.18),
+  Aircraft_Type = "Small Narrow Body"
+)
+
+large_narrow_data <- data.frame(
+  Year = 1995:2015,
+  Purchased_Goods = c(644,784,756,650,631,864,961,873,1021,1354,1897,2200,2236,3644,1844,2478,3124,3166,2951,2775,1836),
+  Aircraft_Ownership = c(821,769,737,661,575,581,769,734,590,465,403,385,418,467,516,492,424,329,295,274,217),
+  Daily_Utilization = c(11,11,11,11,11,11,10,10,9,10,11,11,11,10,10,10,10,10,10,10,10),
+  Aircraft_Type = "Large Narrow Body"
+)
+
+wide_body_data <- data.frame(
+  Year = 1995:2015,
+  Purchased_Goods = c(1513,1788,1683,1356,1309,1815,1935,1701,1927,2660,3953,4634,4884,7761,3762,5188,6521,7017,6737,6406,4216),
+  Aircraft_Ownership = c(1340,1344,1215,1140,1121,1235,1232,1225,1266,1165,1029,815,793,787,837,750,313,369,386,348,312),
+  Daily_Utilization = c(11.54,11.38,11.48,11.69,11.94,11.86,11.56,10.53,9.59,11.61,12.07,12.14,12.41,12.45,12.09,12.28,12.10,12.25,11.65,11.68,11.62),
+  Aircraft_Type = "Wide Body"
+)
+
+# Combine all data frames
+all_data <- rbind(small_narrow_data, large_narrow_data, wide_body_data)
+
+# Reshape data for ggplot
+data_long <- melt(all_data, id.vars = c("Year", "Aircraft_Type"))
+
+# Load required libraries
+library(ggplot2)
+library(reshape2)
+library(gridExtra)
+
+# Create function to generate box plot
+create_boxplot <- function(data, var_name, y_label) {
+  ggplot(subset(data, variable == var_name), 
+         aes(x = Aircraft_Type, y = value, fill = Aircraft_Type)) +
+    geom_boxplot() +
+    scale_fill_manual(values = c("Large Narrow Body" = "pink",
+                                 "Small Narrow Body" = "lavender",
+                                 "Wide Body" = "skyblue")) +
+    labs(title = paste(var_name, "by Aircraft Type"),
+         x = "Aircraft Type",
+         y = y_label) +
+    theme_minimal() +
+    theme(legend.position = "none",
+          axis.text.x = element_text(angle = 45, hjust = 1))
+}
+
+# Create the three plots using the function
+plots <- list(
+  create_boxplot(data_long, "Purchased_Goods", "Purchased Goods (Millions)"),
+  create_boxplot(data_long, "Aircraft_Ownership", "Number of Aircraft"),
+  create_boxplot(data_long, "Daily_Utilization", "Hours per Day")
+)
+
+# Arrange plots in a grid
+grid.arrange(grobs = plots, ncol = 2, nrow = 2)
