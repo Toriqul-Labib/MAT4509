@@ -1,0 +1,21 @@
+Here’s an analysis of the information presented in the plots :
+1. Salary Distributions
+  •	Small Narrow Body: Salaries are concentrated around $300 to $650, with most employees earning in the $350–500 range.
+  •	Large Narrow Body: Salaries range from $350 to $650, and more employees earn around $500–600.
+  •	Wide Body: Salaries are significantly higher, between $600 and $1100, with a large concentration in the $900–1000 range.
+  Key Point: Wide-body aircraft employees earn higher salaries compared to narrow-body ones.
+2. Maintenance Costs and Load Factors
+  •	Maintenance Costs: The small scatter plots show how maintenance costs vary over years for different aircraft types. Wide-body planes generally have higher maintenance costs, as expected from their size.
+  •	Load Factor Comparison: 
+  o	Large narrow-body planes consistently achieve higher load factors (~1.0 or 100% utilization), indicating better passenger occupancy.
+  o	Wide-body planes have lower load factors but still perform well.
+  o	Small narrow-body planes show the lowest load factors.
+  Key Point: Large narrow-body planes are more efficient in passenger occupancy, while wide-body planes require higher maintenance.
+3. Purchased Goods, Aircraft Ownership, and Daily Utilization
+  •	Purchased Goods: Wide-body planes have the highest spending on purchased goods, while small narrow-body planes have the lowest.
+  •	Aircraft Ownership: Wide-body aircraft are owned in larger numbers, indicating higher utilization or demand.
+  •	Daily Utilization: 
+  o	Wide-body planes operate for the most hours per day (up to 12 hours).
+  o	Large narrow-body planes follow closely.
+  o	Small narrow-body planes have the least daily utilization.
+  Key Point: Wide-body planes dominate in ownership, daily usage, and associated costs.
