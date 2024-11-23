@@ -7,15 +7,15 @@ Here’s an analysis of the information presented in the plots :
 2. Maintenance Costs and Load Factors
   •	Maintenance Costs: The small scatter plots show how maintenance costs vary over years for different aircraft types. Wide-body planes generally have higher maintenance costs, as expected from their size.
   •	Load Factor Comparison: 
-  o	Large narrow-body planes consistently achieve higher load factors (~1.0 or 100% utilization), indicating better passenger occupancy.
-  o	Wide-body planes have lower load factors but still perform well.
-  o	Small narrow-body planes show the lowest load factors.
+    o	Large narrow-body planes consistently achieve higher load factors (~1.0 or 100% utilization), indicating better passenger occupancy.
+    o	Wide-body planes have lower load factors but still perform well.
+    o	Small narrow-body planes show the lowest load factors.
   Key Point: Large narrow-body planes are more efficient in passenger occupancy, while wide-body planes require higher maintenance.
 3. Purchased Goods, Aircraft Ownership, and Daily Utilization
   •	Purchased Goods: Wide-body planes have the highest spending on purchased goods, while small narrow-body planes have the lowest.
   •	Aircraft Ownership: Wide-body aircraft are owned in larger numbers, indicating higher utilization or demand.
   •	Daily Utilization: 
-  o	Wide-body planes operate for the most hours per day (up to 12 hours).
-  o	Large narrow-body planes follow closely.
-  o	Small narrow-body planes have the least daily utilization.
+    o	Wide-body planes operate for the most hours per day (up to 12 hours).
+    o	Large narrow-body planes follow closely.
+    o	Small narrow-body planes have the least daily utilization.
   Key Point: Wide-body planes dominate in ownership, daily usage, and associated costs.
